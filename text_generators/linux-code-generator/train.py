@@ -9,18 +9,19 @@ class Config:
     batch_size = 32
     num_epochs = 10
     seq_length = 50
-    validaion_rate = 0.2
+    validation_rate = 0.2
     use_words = False
 
     
     save_path = './weights/'
     data_path = './data/'
+    data_file_name = str('')
 
     reduce_lr = ReduceLROnPlateau(monitor='val_loss',
                                   mode='auto',
                                   factor=0.8,
                                   patience=2,
-                                  epsilon=1e-4,
+                                  min_delta=1e-4,
                                   coldown=5,
                                   min_lr=1e-5)
     
@@ -46,11 +47,11 @@ def train(model, x_train, y_train):
     
     model.fit(x_train,
               y_train,
-              validation_rate=config.validation_rate,
+              validation_split=config.validation_rate,
               batch_size=config.batch_size,
               epochs=config.num_epochs,
               verbose=1,
-              callbaks=config.callbacks)
+              callbacks=config.callbacks)
 
     train_end = time.time()
     print('[INFO] End training model')
@@ -84,10 +85,10 @@ if __name__ == "__main__":
     x_train, y_train, vectorizer = load_data.load_data(args.text, config.use_words, False, False, config.batch_size, config.seq_length)
     
 
-    model = model.make_text_generator_model()
+    generator = model.make_text_generator_model(batch_size=config.batch_size, vocab_size=vectorizer.vocab_size)
 
 
-    train(model, x_train, y_train)
+    train(generator, x_train, y_train)
 
 
 

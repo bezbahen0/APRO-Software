@@ -10,7 +10,7 @@ def make_text_generator_model(batch_size, vocab_size, embedding_size=64, rnn_siz
         model.add(LSTM(rnn_size, stateful=True, return_sequences=True))
         model.add(Dropout(0.2))
     model.add(TimeDistributed(Dense(vocab_size, activation='softmax')))
-    model.compile(loss='sparse_categorical_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
+    model.compile(loss='sparse_categorical_crossentropy', optimizer='rmsprop')
     return model
 
 
