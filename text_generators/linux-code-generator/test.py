@@ -30,7 +30,7 @@ def generate(model, vectorizer, seed, length=100, diversity=0.5):
 
     sampled_indices = []  # np.array([], dtype=np.int32)
     # Sample the model one token at a time
-    for i in range(length):
+    for _ in range(length):
         char_index = 0
         if preds is not None:
             char_index = sample_preds(preds[0][0], diversity)
