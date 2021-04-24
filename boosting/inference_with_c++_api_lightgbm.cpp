@@ -20,6 +20,7 @@ int main(int argc, char **argv)
         std::normal_distribution<>(0, 1),
         std::normal_distribution<>(10, 1)};
 
+
     /* create raw data */
     const int numSamples = 5000;
     const int numFeats = 2;
